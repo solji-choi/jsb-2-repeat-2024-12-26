@@ -6,6 +6,7 @@ import com.ll.sbb2.global.exceptions.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,5 +27,16 @@ public class QuestionService {
         } else {
             throw new DataNotFoundException("존재하지 않는 id입니다.");
         }
+    }
+
+    public void create(String subject, String content) {
+        Question question = Question
+                .builder()
+                .subject(subject)
+                .content(content)
+                .createDate(LocalDateTime.now())
+                .build();
+
+        this.questionRepository.save(question);
     }
 }
